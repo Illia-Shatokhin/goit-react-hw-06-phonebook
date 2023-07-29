@@ -7,8 +7,8 @@ import { getContacts, getFilter } from 'redux/selectors';
 import { NoContactsMessage } from 'components/noContactsMessage/noContactsMessage';
 
 export const ContactsList = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const { contacts } = useSelector(getContacts);
+  const { filter } = useSelector(getFilter);
 
   const dispatch = useDispatch();
 
