@@ -1,34 +1,23 @@
-import { useState } from 'react';
 import css from './PhonebookForm.module.css';
 import { LabelInput } from 'components/label-input/LabelInput';
-import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
 import { Button } from 'components/button/Button';
+import { addContact } from 'redux/contactsSlice';
+import { useDispatch } from 'react-redux';
 
-export const PhonebookForm = ({ contacts, setContacts }) => {
-  let [name, setName] = useState('');
-  let [number, setNumber] = useState('');
+export const PhonebookForm = () => {
+  const dispatch = useDispatch();
 
-  const addContact = e => {
-    e.preventDefault();
-    const newContact = [{ name, number, id: nanoid() }];
-    if (contacts.some(contact => name === contact.name)) {
-      alert(`${name} is already in contacts`);
-    } else {
-      const newArrOfContacts = [...contacts, ...newContact];
-      setContacts(newArrOfContacts);
-    }
-    setName((name = ''));
-    setNumber((number = ''));
+  const handleSubmit = event => {
+    event.preventDefault();
+    const form = event.target;
+    const contactData = [form.elements.name.value, form.elements.number.value];
+    dispatch(addContact(contactData));
+    form.reset();
   };
 
   return (
-    <form className={css.form} onSubmit={addContact}>
+    <form className={css.form} onSubmit={handleSubmit}>
       <LabelInput
-        value={name}
-        handleInputChange={e => {
-          setName((name = e.target.value));
-        }}
         placeholder="Annie Copeland"
         type="text"
         name="name"
@@ -37,11 +26,6 @@ export const PhonebookForm = ({ contacts, setContacts }) => {
         labelName="Name"
       />
       <LabelInput
-        value={number}
-        handleInputChange={e => {
-          setNumber((number = e.target.value));
-          // setNumber(number + e.nativeEvent.data);
-        }}
         placeholder="227-91-26"
         type="tel"
         name="number"
@@ -52,9 +36,4 @@ export const PhonebookForm = ({ contacts, setContacts }) => {
       <Button type="sumbit" text="Add button" />
     </form>
   );
-};
-
-PhonebookForm.propTypes = {
-  contacts: PropTypes.array,
-  setContacts: PropTypes.func,
 };

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 export const LabelInput = ({
   handleInputChange,
-  value,
   placeholder,
   type,
   name,
@@ -18,7 +17,6 @@ export const LabelInput = ({
         className={css.input}
         onChange={handleInputChange}
         placeholder={placeholder}
-        value={value}
         type={type}
         name={name}
         pattern={pattern}
@@ -31,7 +29,6 @@ export const LabelInput = ({
 
 LabelInput.propTypes = {
   handleInputChange: PropTypes.func,
-  value: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string,
